@@ -59,8 +59,8 @@ def Evaluation_train(adj, Z_l, z_l, u, size,  X, gpu_id, r, s_t, s_v):
         margin_before = probs_before_attack[z_l[u]] - probs_before_attack[best_second_class_before]
         margins_.append(margin_before)
     gcn_.session.close()
-    print(np.round(probs_before_attack, 3), margins_[-1])# Z_l.shape, 
-    print('Ground Truth: ', [z_l[u]])
+    print(margins_[-1])#np.round(probs_before_attack, 3),  Z_l.shape, 
+    print('Ground Truth Label: ', z_l[u])
     return probs_before_attack, margins_
 
 
@@ -110,18 +110,18 @@ def run():
 
     # # CL
     print('\nRe-train...Target CL')
-    print('\nBefore (Probability/ Maring)')
+    print('\nBefore Maring')
     _, _ = Evaluation_train(_An, _Z_obs, _z_obs, NF.u, sizes,  _X_obs, gpu_id, retrain_iters, split_train, split_val)
 
-    print('\nAfter (Probability/ Maring)')
+    print('\nAfter Maring')
     _, _ = Evaluation_train(NF.adj_preprocessed, _Z_obs, _z_obs, NF.u, sizes,  NF.X_obs.tocsr(), gpu_id, retrain_iters, split_train, split_val)
 
     # privacy CL
     print('\nRe-train...Private CL')
-    print('\nBefore (Probability/ Maring)')
+    print('\nBefore Maring')
     _, _ = Evaluation_train(_An, _Z_obsp, _z_obsp, NF.u, sizesp,  _X_obs, gpu_id, retrain_iters, split_train, split_val)
 
-    print('\nAfter (Probability/ Maring)')
+    print('\nAfter Maring')
     _, _ = Evaluation_train(NF.adj_preprocessed, _Z_obsp, _z_obsp, NF.u, sizesp,  NF.X_obs.tocsr(), gpu_id, retrain_iters, split_train, split_val)
 
     print('\n')
