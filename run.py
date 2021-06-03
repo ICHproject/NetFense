@@ -19,13 +19,9 @@ def load_obj(name ):
 def parse_args():
     #Parses the arguments.
     parser = argparse.ArgumentParser(description="CoANE")
-    # parser.add_argument('--method', type=str, default='PPR', help='')
-    parser.add_argument('--data_name', type=str, default='citeseer', help='Name of Dataset')
-    #'cora'#'citeseer'#'Pubmed'#'WebKB'   #'BlogCatalog'#'Flickr'
-    # parser.add_argument('--device', type=str, default='cuda', help='Training run on gpu("cuda") or cpu("cpu")')
-
+    parser.add_argument('--data_name', type=str, default='citeseer', help='Name of Dataset citeseer/cora/TerroristRel for Citeseer/Cora/PIT')
     parser.add_argument('--verbose', type=bool, default=True, help='Print log')
-
+    
     parser.add_argument('--gpu_id', type=int, default=0, help='GPU id ')
     parser.add_argument('--seed', type=int, default=0, help='random seed')
     parser.add_argument('--n_hid', type=int, default=16, help='hidden size of GCN')
@@ -39,8 +35,8 @@ def parse_args():
     return parser.parse_args() 
 
 def split(args, _N, _z_obs):
-    unlabeled_share = args.test_frac # 0.8
-    val_share = args.val_frac # 0.1
+    unlabeled_share = args.test_frac
+    val_share = args.val_frac
     train_share = 1 - unlabeled_share - val_share
 
     np.random.seed(15)
@@ -71,7 +67,7 @@ def Evaluation_train(adj, Z_l, z_l, u, size,  X, gpu_id, r, s_t, s_v):
 def run():
     args = parse_args()
     gpu_id = None # set this to your desired GPU ID if you want to use GPU computations 
-    data_name = args.data_name#'citeseer'#'cora'#'TerroristRel'
+    data_name = args.data_name
     n_hid = args.n_hid
     AE_par = args.AE_par
     ME_par = args.ME_par
