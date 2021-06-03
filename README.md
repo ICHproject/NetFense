@@ -34,8 +34,7 @@ python run.py
 
 ## Data
 
-In this example, we load citation network data (Citeseer). 
-The original source can be found here: http://linqs.cs.umd.edu/projects/projects/lbc/ and 
-here (in a different format): https://github.com/danielzuegner/nettack
+In this example, we load citation network data (Citeseer).  
+Data source can be found by [Cora and Citeseer](http://linqs.cs.umd.edu/projects/projects/lbc/) / [PIT](http://www.cs.cmu.edu/~eairoldi/nets/icml_sna/paper7_final.pdf).
 
 
