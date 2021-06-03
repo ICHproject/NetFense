@@ -1,8 +1,14 @@
 import numpy as np
 import scipy.sparse as sp
-from NetFense.utils import *
+# from utils import *
 from numba import jit
 
+def preprocess_graph(adj):
+    adj_ = adj + sp.eye(adj.shape[0])
+    rowsum = adj_.sum(1).A1
+    degree_mat_inv_sqrt = sp.diags(np.power(rowsum, -0.5))
+    adj_normalized = adj_.dot(degree_mat_inv_sqrt).T.dot(degree_mat_inv_sqrt).tocsr()
+    return adj_normalized
 
 class NetFense:
     def __init__(self, adj, X_obs, z_obs, W1, W2, z_obsp, W1p, W2p, u, verbose=False, AE_par = 0.5, ME_par = 2):
